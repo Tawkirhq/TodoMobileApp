@@ -22,6 +22,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
+  cardText:{
+    color: "#fff",
+    fontSize:16
+  }
 });
 
 export default function Home({ navigation, extraData }) {
@@ -43,6 +47,7 @@ export default function Home({ navigation, extraData }) {
         querySnapshot.forEach((doc) => {
           const task = doc.data();
           task.id = doc.id;
+          task.color = task.priority === "High" ? "red" : task.priority == "Low" ? "green" : "blue";
           newTasks.push(task);
         });
 
@@ -53,18 +58,18 @@ export default function Home({ navigation, extraData }) {
 
   const renderTasks = ({ item, index }) => {
     return (
-      <Card customStyle={{ padding: 20, marginBottom: 15 }}>
+      <Card customStyle={{ padding: 20, marginBottom: 15, backgroundColor: item.color }}>
         <View style={styles.titleWrapper}>
           <View style={{ flex: 1, flexDirection: "row", flexWrap: "wrap" }}>
-            <Text>{`Task #${index + 1} - `}</Text>
-            <Text>{item.description}</Text>
+            <Text style={styles.cardText}>{`Task #${index + 1} - `}</Text>
+            <Text style={styles.cardText}>{item.description}</Text>
           </View>
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity onPress={() => navigation.navigate("Update", { item })}>
-              <Feather name="edit" size={24} color="black" />
+              <Feather name="edit" size={24} color="#fff" />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => onDelete(item.id)}>
-              <AntDesign name="delete" size={24} color="black" style={{ marginLeft: 15 }} />
+              <AntDesign name="delete" size={24} color="#fff" style={{ marginLeft: 15 }} />
             </TouchableOpacity>
           </View>
         </View>

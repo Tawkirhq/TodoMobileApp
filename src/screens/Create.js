@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TextInput, ActivityIndicator } from "react-native";
+import { Text, View, StyleSheet, TextInput, ActivityIndicator, TouchableOpacity, Image } from "react-native";
 import Button from "../components/Button";
 import { firebase } from "../firebase/config";
 
@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
 
 export default function Create({ route, navigation }) {
   const [task, setTask] = useState(null);
+  const [color, setColor] = useState(null);
   const [loading, setLoding] = useState(false);
   const userId = route.params.userId;
   const taskRef = firebase.firestore().collection("tasks");
@@ -44,12 +45,14 @@ export default function Create({ route, navigation }) {
         description: task,
         authorId: userId,
         createdAt: timeStamp,
+        priority: color
       };
 
       return taskRef
         .add(data)
         .then((_doc) => {
           setTask(null);
+          setColor(null);
           setLoding(false);
         })
         .catch((err) => {
@@ -66,6 +69,47 @@ export default function Create({ route, navigation }) {
           <Text style={styles.title}>Create Task</Text>
         </View>
         <TextInput value={task} onChangeText={(text) => setTask(text)} placeholder="Set Task" style={styles.input} />
+        <View style={{ flexDirection: "row", marginBottom: 15 }}>
+          <View style={{ marginTop: 20 }}>
+            <TouchableOpacity
+              onPress={() => setColor("High")}
+              style={{ height: 50, width: 50, borderRadius: 25, backgroundColor: "red" }}
+            >
+              {color === "High" && (
+                <View style={{ flexDirection: "column", alignItems: "center", marginTop: 10 }}>
+                  <Image source={require("../../assets/tick.png")} />
+                </View>
+              )}
+            </TouchableOpacity>
+            <Text style={{ textAlign:'center',marginTop:5 }}>High</Text>
+          </View>
+          <View style={{ marginTop: 20, marginLeft: 10 }}>
+            <TouchableOpacity
+              onPress={() => setColor("Low")}
+              style={{ height: 50, width: 50, borderRadius: 25, backgroundColor: "green" }}
+            >
+              {color === "Low" && (
+                <View style={{ flexDirection: "column", alignItems: "center", marginTop: 10 }}>
+                  <Image source={require("../../assets/tick.png")} />
+                </View>
+              )}
+            </TouchableOpacity>
+            <Text style={{ textAlign:'center',marginTop:5 }}>Low</Text>
+          </View>
+          <View style={{ marginTop: 20, marginLeft: 10, alignItems: "center", justifyContent: "center" }}>
+            <TouchableOpacity
+              onPress={() => setColor("Medium")}
+              style={{ height: 50, width: 50, borderRadius: 25, backgroundColor: "blue" }}
+            >
+              {color === "Medium" && (
+                <View style={{ flexDirection: "column", alignItems: "center", marginTop: 10 }}>
+                  <Image source={require("../../assets/tick.png")} />
+                </View>
+              )}
+            </TouchableOpacity>
+            <Text style={{ textAlign:'center',marginTop:5 }}>Medium</Text>
+          </View>
+        </View>
         {loading ? (
           <ActivityIndicator />
         ) : (
