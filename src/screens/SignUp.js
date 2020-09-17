@@ -6,13 +6,13 @@ import { firebase } from "../firebase/config";
 const styles = StyleSheet.create({
   form: {
     marginHorizontal: 25,
-    marginTop: 60,
+    marginTop: 150,
   },
   input: {
     height: 40,
     borderBottomColor: "#ddd",
     borderBottomWidth: 1,
-    marginBottom: 30,
+    marginBottom: 50,
   },
 });
 
@@ -68,7 +68,7 @@ export default function SignUp({ navigation }) {
           <ActivityIndicator />
         ) : (
           <View style={{ width: "50%", alignSelf: "center" }}>
-            <Button title="LOGIN" onPress={signup} backgroundColor="#FFE600" />
+            <Button title="Sign Up" onPress={signup} backgroundColor="#FFE600" />
           </View>
         )}
       </View>

@@ -36,7 +36,7 @@ export default function Create({ route, navigation }) {
   const taskRef = firebase.firestore().collection("tasks");
 
   const onSave = () => {
-    if (task && task.length > 0) {
+    if (task && task.length > 0 || !color) {
       setLoding(true);
 
       const timeStamp = firebase.firestore.FieldValue.serverTimestamp();

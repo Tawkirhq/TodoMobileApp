@@ -95,7 +95,7 @@ export default function Home({ navigation, extraData }) {
               <Button title="ADD" backgroundColor="#FFE600" onPress={() => navigation.navigate("Create", { userId })} />
             </View>
           </View>
-          {/* <View style={{ flex: 1, justifyContent: "flex-end" }}>
+          <View style={{ flex: 1, justifyContent: "flex-end" }}>
             <Button
               title="LOGOUT"
               backgroundColor="blue"
@@ -103,7 +103,7 @@ export default function Home({ navigation, extraData }) {
                 firebase.auth().signOut();
               }}
             />
-          </View> */}
+          </View>
         </View>
       </View>
     );
